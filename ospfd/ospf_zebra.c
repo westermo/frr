@@ -1232,16 +1232,12 @@ void ospf_distribute_list_update(struct ospf *ospf, uintptr_t type,
 
 	/* External info does not exist. */
 	ext = ospf_external_lookup(type, instance);
-	if (!ext || !(rt = EXTERNAL_INFO(ext))) {
-		XFREE(MTYPE_OSPF_DIST_ARGS, args);
+	if (!ext || !(rt = EXTERNAL_INFO(ext)))
 		return;
-	}
 
 	/* If exists previously invoked thread, then let it continue. */
-	if (ospf->t_distribute_update) {
-		XFREE(MTYPE_OSPF_DIST_ARGS, args);
+	if (ospf->t_distribute_update)
 		return;
-	}
 
 	/* Set timer. */
 	ospf->t_distribute_update =
